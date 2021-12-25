@@ -1,12 +1,14 @@
-FROM debian:stable-slim
+FROM debian:stable-slim AS build
 
 RUN apt-get update
-RUN apt-get install -y gcc g++ unzip make cmake
+RUN apt-get install -y gcc g++ make cmake git
 
 WORKDIR /tmp
 
-COPY ./code.zip ./tdengine.zip
-RUN unzip ./tdengine.zip -d .
+RUN git clone -b ver-2.2.2.11 https://github.com/taosdata/TDengine .
+RUN cmake . && cmake --build . && make install
 
-RUN mv ./TDengine-ver-2.2.2.11 ./tdengine
-RUN cd tdengine && cmake . && cmake --build .
+FROM scratch
+
+COPY --from=build /tmp/build /build
+COPY --from=build /usr/include /usr/include 

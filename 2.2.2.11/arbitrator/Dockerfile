@@ -19,7 +19,7 @@ RUN chown -R tdengine:tdengine /var/log/taos
 WORKDIR /home/tdengine
 USER tdengine
 
-COPY --chown=tdengine:tdengine --from=build /tmp/tdengine/build/bin/tarbitrator .
+COPY --chown=tdengine:tdengine --from=build /build/bin/tarbitrator .
 
 VOLUME [ "/var/log/taos" ]
 

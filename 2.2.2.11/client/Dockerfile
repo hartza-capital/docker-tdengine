@@ -16,7 +16,7 @@ RUN useradd -m -u 10001 tdengine
 RUN mkdir -p /usr/lib/tdengine /var/log/taos /var/lib/taos /etc/taos
 RUN chown -R tdengine:tdengine /var/log/taos /var/lib/taos /etc/taos
 
-COPY --from=build /tmp/tdengine/build/lib/libtaos.so.2.2.2.11 /usr/lib/tdengine/libtaos.so
+COPY --from=build /build/lib/libtaos.so.2.2.2.11 /usr/lib/tdengine/libtaos.so
 RUN echo "/usr/lib/tdengine/" > tdengine.conf 
 RUN mv tdengine.conf /etc/ld.so.conf.d/tdengine.conf
 RUN ldconfig
@@ -24,8 +24,8 @@ RUN ldconfig
 WORKDIR /home/tdengine
 USER tdengine
 
-COPY --chown=tdengine:tdengine --from=build /tmp/tdengine/build/bin/taos .
-COPY --chown=tdengine:tdengine --from=build /tmp/tdengine/build/bin/taosdump .
+COPY --chown=tdengine:tdengine --from=build /build/bin/taos .
+COPY --chown=tdengine:tdengine --from=build /build/bin/taosdump .
 
 COPY --chown=tdengine:tdengine ./taos.cfg /etc/taos/taos.cfg
 

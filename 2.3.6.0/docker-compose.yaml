@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  code:
+    build:
+      context: ./build
+    image: quay.io/arktos-venture/tdengine-build:v2.3.6.0
+    restart: never
+
+  arbitrator:
+    build:
+      context: ./arbitrator
+    image: quay.io/arktos-venture/tdengine-arbitrator:v2.3.6.0
+    restart: never
+    depends_on:
+      - code
+
+  client:
+    build:
+      context: ./client
+    image: quay.io/arktos-venture/tdengine-client:v2.3.6.0
+    restart: never
+    depends_on:
+      - code
+
+  node:
+    build:
+      context: ./node
+    image: quay.io/arktos-venture/tdengine-node:v2.3.6.0
+    restart: never
+    depends_on:
+      - code
+
+  adapter:
+    build:
+      context: ./adapter
+    image: quay.io/arktos-venture/tdengine-adapter:v2.3.6.0
+    restart: never
+    depends_on:
+      - code
