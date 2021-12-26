@@ -1,4 +1,4 @@
-FROM quay.io/arktos-venture/tdengine-build:v2.2.2.11 AS build
+FROM quay.io/arktos-venture/tdengine-build:2.2.2.11 AS build
 FROM debian:stable-slim
 
 ARG VERSION
