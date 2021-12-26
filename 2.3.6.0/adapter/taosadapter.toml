@@ -63,7 +63,7 @@ user = "root"
 password = "taosdata"
 
 [node_exporter]
-enable = true
+enable = false
 db = "node_exporter"
 user = "root"
 password = "taosdata"
