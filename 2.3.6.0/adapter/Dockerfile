@@ -13,12 +13,19 @@ LABEL org.opencontainers.image.version=2.3.6.0
 
 RUN useradd -m -u 10001 tdengine
 
-RUN mkdir -p /usr/lib/tdengine /var/log/taos /var/lib/taos /etc/taos
-RUN chown -R tdengine:tdengine /var/log/taos /var/lib/taos /etc/taos
+RUN mkdir -p /usr/lib/tdengine /var/log/taos /etc/taos
+RUN chown -R tdengine:tdengine /var/log/taos /etc/taos
+
+COPY --from=build /build/lib/libtaos.so.2.3.6.0 /usr/lib/tdengine/libtaos.so
+RUN echo "/usr/lib/tdengine/" > tdengine.conf 
+RUN mv tdengine.conf /etc/ld.so.conf.d/tdengine.conf
+RUN ldconfig
 
 WORKDIR /home/tdengine
 USER tdengine
 
 COPY --chown=tdengine:tdengine --from=build /build/bin/taosadapter .
+COPY --chown=tdengine:tdengine ./taosadapter.toml /etc/taos/taosadapter.toml
+COPY --chown=tdengine:tdengine ./taos.cfg /etc/taos/taos.cfg
 
 ENTRYPOINT [ "./taosadapter" ]
