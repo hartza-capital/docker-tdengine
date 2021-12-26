@@ -4,13 +4,13 @@ services:
   code:
     build:
       context: ./build
-    image: quay.io/arktos-venture/tdengine-build:v2.2.2.11
+    image: quay.io/arktos-venture/tdengine-build:2.2.2.11
     restart: never
 
   arbitrator:
     build:
       context: ./arbitrator
-    image: quay.io/arktos-venture/tdengine-arbitrator:v2.2.2.11
+    image: quay.io/arktos-venture/tdengine-arbitrator:2.2.2.11
     restart: never
     depends_on:
       - code
@@ -18,7 +18,7 @@ services:
   client:
     build:
       context: ./client
-    image: quay.io/arktos-venture/tdengine-client:v2.2.2.11
+    image: quay.io/arktos-venture/tdengine-client:2.2.2.11
     restart: never
     depends_on:
       - code
@@ -26,7 +26,7 @@ services:
   node:
     build:
       context: ./node
-    image: quay.io/arktos-venture/tdengine-node:v2.2.2.11
+    image: quay.io/arktos-venture/tdengine-node:2.2.2.11
     restart: never
     depends_on:
       - code

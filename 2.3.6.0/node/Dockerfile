@@ -1,4 +1,4 @@
-FROM quay.io/arktos-venture/tdengine-build:v2.3.6.0 AS build
+FROM quay.io/arktos-venture/tdengine-build:2.3.6.0 AS build
 FROM debian:stable-slim
 
 ARG VERSION
@@ -25,6 +25,7 @@ WORKDIR /home/tdengine
 USER tdengine
 
 COPY --chown=tdengine:tdengine --from=build /build/bin/taosd .
+COPY --chown=tdengine:tdengine --from=build /build/bin/taos .
 COPY --chown=tdengine:tdengine ./taos.cfg /etc/taos/taos.cfg
 
 VOLUME [ "/var/lib/taos", "/var/log/taos" ]
