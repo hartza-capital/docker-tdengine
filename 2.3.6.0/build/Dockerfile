@@ -9,7 +9,7 @@ RUN git clone -b ver-2.3.6.0 https://github.com/taosdata/TDengine .
 RUN git submodule update --init --recursive
 
 RUN cmake . && cmake --build . && make install
-RUN cd ./src/plugins/taosadapter && go build -o /go/src/github.com/taosdata/TDengine/build/bin/taosadapter
+RUN cd ./src/plugins/taosadapter && go build -ldflags "-s -w" -o /go/src/github.com/taosdata/TDengine/build/bin/taosadapter
 
 FROM scratch
 
