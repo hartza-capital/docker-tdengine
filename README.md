@@ -1,6 +1,6 @@
 # TDEngine Containers
 
-TDEngine `Client`, `Node` and `Arbitrator` Rootless and smallest containers as possible.   
+TDEngine `Client`, `Node`, `Arbitrator` and `Adapter` Rootless and smallest containers as possible.   
 This repository isn't affilied with **TaosData**.   
 
 Images available :
