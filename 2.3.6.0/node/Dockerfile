@@ -21,13 +21,15 @@ RUN echo "/usr/lib/tdengine/" > tdengine.conf
 RUN mv tdengine.conf /etc/ld.so.conf.d/tdengine.conf
 RUN ldconfig
 
+COPY --from=build /build/bin/taosd /usr/bin/taosd
+COPY --from=build /build/bin/taos /usr/bin/taos
+
 WORKDIR /home/tdengine
 USER tdengine
 
-COPY --chown=tdengine:tdengine --from=build /build/bin/taosd .
-COPY --chown=tdengine:tdengine --from=build /build/bin/taos .
 COPY --chown=tdengine:tdengine ./taos.cfg /etc/taos/taos.cfg
+COPY --chown=tdengine:tdengine ./entrypoint.sh .
 
 VOLUME [ "/var/lib/taos", "/var/log/taos" ]
 
-ENTRYPOINT [ "./taosd" ]
+ENTRYPOINT [ "./entrypoint.sh", "taosd" ]

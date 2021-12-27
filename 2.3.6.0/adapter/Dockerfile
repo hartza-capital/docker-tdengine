@@ -1,9 +1,7 @@
 FROM quay.io/arktos-venture/tdengine-build:2.3.6.0 AS build
 FROM debian:stable-slim
 
-ARG VERSION
-
-LABEL org.opencontainers.image.title=tdengine
+LABEL org.opencontainers.image.title=adapter
 LABEL org.opencontainers.image.description="An open-source big data platform designed and optimized for the Internet of Things (IoT)."
 LABEL org.opencontainers.image.authors="Aurelien Perrier <aperrier@universe.sh>"
 LABEL org.opencontainers.image.source=https://github.com/arktos-venture/docker-tdengine
@@ -21,11 +19,12 @@ RUN echo "/usr/lib/tdengine/" > tdengine.conf
 RUN mv tdengine.conf /etc/ld.so.conf.d/tdengine.conf
 RUN ldconfig
 
-WORKDIR /home/tdengine
-USER tdengine
+COPY --from=build /build/bin/taosadapter /usr/bin/taosadapter
 
-COPY --chown=tdengine:tdengine --from=build /build/bin/taosadapter .
+USER tdengine
+WORKDIR /home/tdengine
+
 COPY --chown=tdengine:tdengine ./taosadapter.toml /etc/taos/taosadapter.toml
 COPY --chown=tdengine:tdengine ./taos.cfg /etc/taos/taos.cfg
 
-ENTRYPOINT [ "./taosadapter" ]
+ENTRYPOINT [ "taosadapter" ]
