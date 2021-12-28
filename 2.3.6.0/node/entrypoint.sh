@@ -13,7 +13,6 @@ CLUSTER=${CLUSTER:=}
 FIRST_EP_HOST=${TAOS_FIRST_EP%:*}
 SERVER_PORT=${TAOS_SERVER_PORT:-6030}
 
-echo $TAOS_FQDN $FIRST_EP_HOST $CLUSTER
 # if has mnode ep set or the host is first ep or not for cluster, just start.
 if [ -f "/var/lib/taos/dnode/mnodeEpSet.json" ] || \
   [ "$TAOS_FQDN" = "$FIRST_EP_HOST" ] || [ "$CLUSTER" = "" ]; then
