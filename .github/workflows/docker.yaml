@@ -25,7 +25,7 @@ jobs:
       -
         name: Code Build and push
         id: docker_build
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           push: true
           context: ./2.3.6.0/build
@@ -33,7 +33,7 @@ jobs:
       -
         name: Client Build and push
         id: docker_build
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           push: true
           context: ./2.3.6.0/client
@@ -41,14 +41,14 @@ jobs:
       -
         name: Arbitrator Build and push
         id: docker_build
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           push: true
           tags: quay.io/arktos-venture/tdengine-arbitrator:2.3.6.0
       -
         name: Node Build and push
         id: docker_build
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           push: true
           context: ./2.3.6.0/node
@@ -56,7 +56,7 @@ jobs:
       -
         name: Adapter Build and push
         id: docker_build
-        uses: docker/build-push-action@v2
+        uses: docker/build-push-action@v3
         with:
           push: true
           context: ./2.3.6.0/adapter
